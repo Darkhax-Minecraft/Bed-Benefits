@@ -4,6 +4,7 @@ issueTrackerURL="https://github.com/Darkhax-Minecraft/Bed-Benefits/issues"
 
 [[mods]]
 modId="bedbenefits"
+updateJSONURL="https://updates.blamejared.com/get?n=bedbenefits&gv=1.15.2"
 version="${version}"
 displayName="${mod_name}"
 displayURL="${mod_download}"
