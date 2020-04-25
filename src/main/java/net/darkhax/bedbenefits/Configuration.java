@@ -12,7 +12,6 @@ public class Configuration {
     private final DoubleValue healAmount;
     private final BooleanValue removeBadEffects;
     private final BooleanValue removePositiveEffects;
-    private final BooleanValue forceClearWeather;
     
     public Configuration() {
         
@@ -26,7 +25,6 @@ public class Configuration {
         this.healAmount = builder.defineInRange("restore-health-amount", 10d, 0d, Double.MAX_VALUE);
         this.removeBadEffects = builder.define("remove-bad-effects", true);
         this.removePositiveEffects = builder.define("remove-positive-effects", true);
-        this.forceClearWeather = builder.define("force-clear-weather", true);
         
         builder.pop();
         this.spec = builder.build();
@@ -55,10 +53,5 @@ public class Configuration {
     public boolean shouldClearGoodEffects () {
         
         return this.removePositiveEffects.get();
-    }
-    
-    public boolean shouldForceClearWeather () {
-        
-        return this.forceClearWeather.get();
     }
 }
