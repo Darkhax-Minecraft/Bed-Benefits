@@ -20,7 +20,7 @@ apply plugin: 'eclipse'
 apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/generic/secrets.gradle'
 apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/generic/markdown-git-changelog.gradle'
 apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/minecraft/artifacts.gradle'
-apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/minecraft/maven_nomcp.gradle'
+apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/minecraft/maven_local_nomcp.gradle'
 apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/generic/patreon.gradle'
 
 import groovy.json.JsonSlurper
@@ -42,17 +42,17 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 minecraft {
 
     mappings channel: 'snapshot', version: "${mcp_version}".toString()
-	
+    
     if (project.hasProperty('mod_at')) {
     
         accessTransformer = file(findProperty('mod_at'))
     }
-	
+    
     runs {
         client {
-		
+        
             workingDirectory project.file('run')
-			taskName "${mod_name}".replaceAll("\\s","") + 'Client'
+            taskName "${mod_name}".replaceAll("\\s","") + 'Client'
 
             mods {
                 bedbenefits {
@@ -63,8 +63,8 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-			taskName "${mod_name}".replaceAll("\\s","") + 'Server'
-			
+            taskName "${mod_name}".replaceAll("\\s","") + 'Server'
+            
             mods {
                 bedbenefits {
                     source sourceSets.main
@@ -78,7 +78,7 @@ repositories {
 
     maven {
 
-        url 'http://maven.mcmoddev.com'
+        url 'https://maven.blamejared.com/'
     }
 }
 
@@ -138,24 +138,24 @@ processResources {
     
         exclude 'META-INF/mods.toml'
     }
-	
-	doLast {
-	
-	    def jsonMinifyStart = System.currentTimeMillis()
-	    def jsonMinified = 0
-		def jsonBytesSaved = 0
-		
-	    fileTree(dir: outputs.files.asPath, include: '**/*.json').each {
-		
-			File file = it
-			jsonMinified++
-			def oldLength = file.length()
-			file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
-			jsonBytesSaved += oldLength - file.length()
-		}
-		
-		println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
-	}
+    
+    doLast {
+    
+        def jsonMinifyStart = System.currentTimeMillis()
+        def jsonMinified = 0
+        def jsonBytesSaved = 0
+        
+        fileTree(dir: outputs.files.asPath, include: '**/*.json').each {
+        
+            File file = it
+            jsonMinified++
+            def oldLength = file.length()
+            file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
+            jsonBytesSaved += oldLength - file.length()
+        }
+        
+        println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
+    }
 }
 
 curseforge {
