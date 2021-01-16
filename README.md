@@ -1,4 +1,4 @@
-# BadMobs [![](https://cf.way2muchnoise.eu/377051.svg)](https://www.curseforge.com/minecraft/mc-mods/bed-benefits) [![](https://cf.way2muchnoise.eu/versions/377051.svg)](https://www.curseforge.com/minecraft/mc-mods/bed-benefits)
+# Bed Benefits [![](https://cf.way2muchnoise.eu/377051.svg)](https://www.curseforge.com/minecraft/mc-mods/bed-benefits) [![](https://cf.way2muchnoise.eu/versions/377051.svg)](https://www.curseforge.com/minecraft/mc-mods/bed-benefits)
 This mod improves the sleeping mechanic by giving players some benefits when they sleep.
 
 ## Maven Dependency
