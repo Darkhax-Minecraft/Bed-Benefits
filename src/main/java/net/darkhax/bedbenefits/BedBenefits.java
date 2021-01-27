@@ -1,6 +1,7 @@
 package net.darkhax.bedbenefits;
 
 import net.darkhax.bookshelf.util.EntityUtils;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -25,16 +26,26 @@ public class BedBenefits {
             return;
         }
         
-        // Restore health when sleeping
-        if (this.config.shouldRestoreHealth()) {
+        if (event.getPlayer() instanceof ServerPlayerEntity) {
             
-            event.getPlayer().heal((float) this.config.getHealthAmount());
-        }
-        
-        // Clear potion effects when sleeping
-        if (this.config.shouldClearBadEffects() || this.config.shouldClearGoodEffects()) {
+            // Sometimes players are woken up when their NBT is being loaded. This is rare
+            // but trying to modify their potion effects will cause an NPE here.
+            if (((ServerPlayerEntity) event.getPlayer()).connection == null) {
+                
+                return;
+            }
             
-            EntityUtils.clearEffects(event.getEntityLiving(), this.config.shouldClearBadEffects(), this.config.shouldClearGoodEffects());
+            // Restore health when sleeping
+            if (this.config.shouldRestoreHealth()) {
+                
+                event.getPlayer().heal((float) this.config.getHealthAmount());
+            }
+            
+            // Clear potion effects when sleeping
+            if (this.config.shouldClearBadEffects() || this.config.shouldClearGoodEffects()) {
+                
+                EntityUtils.clearEffects(event.getEntityLiving(), this.config.shouldClearBadEffects(), this.config.shouldClearGoodEffects());
+            }
         }
     }
 }
