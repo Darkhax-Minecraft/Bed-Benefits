@@ -1,0 +1,23 @@
+package net.darkhax.bedbenefits.config;
+
+import com.google.gson.annotations.Expose;
+import net.minecraft.server.level.ServerPlayer;
+
+public class SleepEffect {
+
+    @Expose
+    public int requiredFoodAmount = 0;
+
+    public boolean canApply(ServerPlayer player) {
+
+        return player.getFoodData().getFoodLevel() >= this.requiredFoodAmount;
+    }
+
+    public void apply(ServerPlayer player) {
+
+        if (this.requiredFoodAmount > 0) {
+
+            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - this.requiredFoodAmount);
+        }
+    }
+}
