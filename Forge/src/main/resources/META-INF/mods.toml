@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[41,)"
+loaderVersion = "[42,)"
 license = "${mod_license}"
 issueTrackerURL = "${mod_issues}"
 
@@ -20,13 +20,13 @@ itemIcon = "minecraft:red_bed"
 [[dependencies.${mod_id}]]
 modId = "bookshelf"
 mandatory = true
-versionRange = "[14.1.10,)"
+versionRange = "[15,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "forge"
 mandatory = true
-versionRange = "[41.1.0,)"
+versionRange = "[42,)"
 ordering = "NONE"
 side = "BOTH"
