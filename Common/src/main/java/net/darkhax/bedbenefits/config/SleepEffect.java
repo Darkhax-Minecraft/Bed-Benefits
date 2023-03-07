@@ -1,7 +1,9 @@
 package net.darkhax.bedbenefits.config;
 
 import com.google.gson.annotations.Expose;
+import net.darkhax.bedbenefits.Constants;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.food.FoodData;
 
 public class SleepEffect {
 
@@ -17,7 +19,15 @@ public class SleepEffect {
 
         if (this.requiredFoodAmount > 0) {
 
-            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - this.requiredFoodAmount);
+            final float saturation = player.getFoodData().getSaturationLevel();
+            final int food = player.getFoodData().getFoodLevel() - this.requiredFoodAmount;
+            
+            player.getFoodData().setFoodLevel(food);
+
+            // Prevent saturation level being higher than food level.
+            if (saturation > food) {
+                player.getFoodData().setSaturation(food);
+            }
         }
     }
 }
