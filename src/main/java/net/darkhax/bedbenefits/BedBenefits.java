@@ -44,7 +44,7 @@ public class BedBenefits {
             // Clear potion effects when sleeping
             if (this.config.shouldClearBadEffects() || this.config.shouldClearGoodEffects()) {
                 
-                EntityUtils.clearEffects(event.getEntityLiving(), this.config.shouldClearBadEffects(), this.config.shouldClearGoodEffects());
+                EntityUtils.clearEffects(event.getEntityLiving(), this.config.shouldClearGoodEffects(), this.config.shouldClearBadEffects());
             }
         }
     }
