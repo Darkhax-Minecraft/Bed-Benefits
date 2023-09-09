@@ -1,23 +1,29 @@
 package net.darkhax.bedbenefits;
 
 import net.darkhax.bedbenefits.config.Config;
-import net.darkhax.bookshelf.api.Services;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
+import java.nio.file.Path;
+
 public class BedBenefitsCommon {
 
-    private final Config config;
+    private static Config config;
 
-    public BedBenefitsCommon() {
+    public static void init(Path configPath) {
 
-        this.config = Config.load();
-        Services.EVENTS.addPlayerWakeUpListener(this::onPlayerWakeUp);
+        if (config == null) {
+            config = Config.load(configPath);
+        }
+
+        else {
+            throw new IllegalStateException("The mod BedBenefits has already been loaded!");
+        }
     }
 
-    private void onPlayerWakeUp(Player player) {
+    public static void onPlayerWakeUp(Player player) {
 
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (config != null && player instanceof ServerPlayer serverPlayer) {
 
             if (config.restoreHealth.canApply(serverPlayer)) {
 

@@ -24,12 +24,14 @@
       "net.darkhax.bedbenefits.BedBenefitsFabric"
     ]
   },
+  "mixins": [
+    "bedbenefits.fabric.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.14.9",
     "fabric": "*",
     "minecraft": "1.19.x",
-    "java": ">=17",
-    "bookshelf": ">=16"
+    "java": ">=17"
   },
   "custom": {
     "modmenu": {

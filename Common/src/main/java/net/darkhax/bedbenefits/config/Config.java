@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import net.darkhax.bedbenefits.Constants;
-import net.darkhax.bookshelf.api.Services;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Path;
 
 public class Config {
 
@@ -20,9 +20,9 @@ public class Config {
     @Expose
     public SleepOffEffect sleepOffEffects = new SleepOffEffect();
 
-    public static Config load() {
+    public static Config load(Path configPath) {
 
-        final File configFile = Services.PLATFORM.getConfigPath().resolve(Constants.MOD_ID + ".json").toFile();
+        final File configFile = configPath.resolve(Constants.MOD_ID + ".json").toFile();
 
         Config config = new Config();
 
