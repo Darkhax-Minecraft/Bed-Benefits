@@ -7,6 +7,6 @@ public class BedBenefitsForge {
 
     public BedBenefitsForge() {
 
-        new BedBenefitsCommon();
+        BedBenefitsCommon.init();
     }
 }
