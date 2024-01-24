@@ -24,6 +24,9 @@
       "net.darkhax.bedbenefits.BedBenefitsFabric"
     ]
   },
+  "mixins": [
+    "bedbenefits.fabric.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.14.21",
     "fabric": "*",

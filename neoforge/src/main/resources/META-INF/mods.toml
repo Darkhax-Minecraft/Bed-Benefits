@@ -15,23 +15,26 @@ description = '''
 ${mod_description}
 '''
 
+[[mixins]]
+config = "bedbenefits.mixins.json"
+
 [[dependencies.${ mod_id }]]
 modId = "neoforge"
-mandatory = true
+type = "required"
 versionRange = "${neoforge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "minecraft"
-mandatory = true
+type = "required"
 versionRange = "${minecraft_version}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "bookshelf"
-mandatory = true
+type = "required"
 versionRange = "${bookshelf_version}"
 ordering = "NONE"
 side = "CLIENT"
