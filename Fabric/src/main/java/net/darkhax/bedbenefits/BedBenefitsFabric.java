@@ -7,6 +7,6 @@ public class BedBenefitsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        new BedBenefitsCommon();
+        BedBenefitsCommon.init();
     }
 }

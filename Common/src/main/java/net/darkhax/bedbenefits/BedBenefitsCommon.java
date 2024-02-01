@@ -1,23 +1,21 @@
 package net.darkhax.bedbenefits;
 
 import net.darkhax.bedbenefits.config.Config;
-import net.darkhax.bookshelf.api.Services;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class BedBenefitsCommon {
 
-    private final Config config;
+    public static Config config;
 
-    public BedBenefitsCommon() {
+    public static void init() {
 
-        this.config = Config.load();
-        Services.EVENTS.addPlayerWakeUpListener(this::onPlayerWakeUp);
+        config = Config.load();
     }
 
-    private void onPlayerWakeUp(Player player) {
+    public static void onPlayerWakeUp(Player player) {
 
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (config != null && player instanceof ServerPlayer serverPlayer) {
 
             if (config.restoreHealth.canApply(serverPlayer)) {
 
