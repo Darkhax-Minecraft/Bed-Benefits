@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import net.darkhax.bedbenefits.Constants;
-import net.darkhax.bookshelf.api.Services;
+import net.darkhax.bookshelf.common.api.service.Services;
 
 import java.io.File;
 import java.io.FileReader;

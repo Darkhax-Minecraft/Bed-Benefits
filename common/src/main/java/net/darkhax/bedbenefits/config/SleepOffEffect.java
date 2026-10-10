@@ -1,7 +1,7 @@
 package net.darkhax.bedbenefits.config;
 
 import com.google.gson.annotations.Expose;
-import net.minecraft.client.renderer.EffectInstance;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -33,11 +33,11 @@ public class SleepOffEffect extends SleepEffect {
     @Override
     public void apply(ServerPlayer player) {
 
-        final Set<MobEffect> toClear = new HashSet<>();
+        final Set<Holder<MobEffect>> toClear = new HashSet<>();
 
         for (final MobEffectInstance effect : player.getActiveEffects()) {
 
-            if (affectsCategory(effect.getEffect().getCategory())) {
+            if (affectsCategory(effect.getEffect().value().getCategory())) {
 
                 toClear.add(effect.getEffect());
             }
@@ -45,7 +45,7 @@ public class SleepOffEffect extends SleepEffect {
 
         if (!toClear.isEmpty()) {
 
-            for (final MobEffect effect : toClear) {
+            for (final Holder<MobEffect> effect : toClear) {
 
                 player.removeEffect(effect);
             }

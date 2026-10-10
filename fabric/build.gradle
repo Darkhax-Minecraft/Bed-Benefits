@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'net.fabricmc.fabric-loom' version '1.18-SNAPSHOT'
     id 'net.darkhax.curseforgegradle'
     id 'com.modrinth.minotaur'
     id 'idea'
@@ -14,10 +14,9 @@ base {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation "net.darkhax.bookshelf:Bookshelf-Fabric-${project.ext.minecraft_version}:${project.ext.bookshelf_version}"
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    implementation "net.darkhax.bookshelf:bookshelf-fabric-${project.ext.minecraft_version}:${project.ext.bookshelf_version}"
 
     implementation project(':common')
 }
@@ -68,7 +67,7 @@ processResources {
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
+tasks.named('compileJava', JavaCompile) {
     source(project(':common').sourceSets.main.allSource)
 }
 
@@ -117,12 +116,12 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 
     apiToken = findProperty('curse_auth')
 
-    def mainFile = upload(curse_project, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    def mainFile = upload(curse_project, file("${project.buildDir}/libs/${base.archivesName.get()}-${version}.jar"))
     mainFile.changelogType = 'markdown'
     mainFile.changelog = project.ext.mod_changelog
     mainFile.releaseType = 'release'
     mainFile.addGameVersion('Client', 'Server')
-    mainFile.addJavaVersion('Java 17')
+    mainFile.addJavaVersion('Java 25')
     mainFile.addRequirement('bookshelf')
     mainFile.addModLoader('Fabric')
     mainFile.addModLoader('Quilt')
@@ -158,7 +157,7 @@ modrinth {
     changelog = changelogText
     versionName.set("${mod_name}-Fabric-${minecraft_version}-$version")
     versionType.set("release")
-    uploadFile.set(tasks.remapJar)
+    uploadFile.set(tasks.jar)
     dependencies {
         required.project('fabric-api')
         required.project('bookshelf-lib')
